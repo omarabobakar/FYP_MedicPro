@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% block body %}
+{% load static %}
+<div class="container-xl px-4 mt-4">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Profile Picture</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 50%;" class="m-auto">
+                        <img id="profile-image" src="{% if user.avatar %}/media/{{ user.avatar }}{% else %}{% static 'db/images/20.jpg' %}{% endif %}" alt="" class="rounded" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    <button class="btn btn-primary" id="upload-button" type="button">Upload new image</button>
+                </div>
+                <p class="text-success text-center mt-1 px-2">By Default Your Available Time will be 7:00 AM to 9:00 PM on Selected Days</p>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header">Doctor Details</div>
+                <div class="card-body">
+                    <form action="{% url "update_doctor_profile" %}" method="post" enctype="multipart/form-data">
+                        <!-- changing user image -->
+                        <input type="file" id="upload-image" accept="image/*" style="display: none;" name="newAvatar">
+                        <!-- Form Group (username)-->
+                        <div class="mb-3 row">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="patientEmail">Email</label>
+                                <input class="form-control" id="patientEmail" name="email" type="email" placeholder="Enter your email" value="{{user.email}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="patientUsername">Username</label>
+                                <input class="form-control" id="patientUsername" name="username" type="text" placeholder="Enter your username" value="{{user.username}}">
+                            </div>
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName">First name</label>
+                                <input class="form-control" id="inputFirstName" name="first_name" type="text" placeholder="Enter your first name" value="{{user.first_name}}">
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">Last name</label>
+                                <input class="form-control" id="inputLastName" name="last_name" type="text" placeholder="Enter your last name" value="{{user.last_name}}">
+                            </div>
+                        </div>
+                        
+                        <div class="row gx-3 mb-3">
+                  
+                            
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone">Phone number</label>
+                                <input class="form-control" id="inputPhone" type="text" name="phone" placeholder="Enter your phone number" value="{{user.phone}}" maxlength="13">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="clinic_address">Your Clinic Address</label>
+                                <input class="form-control" id="clinic_address" name="clinic_address" type="text" placeholder="Enter your clinic address" value="{{doctor.clinic_address}}">
+                            </div>
+
+                           
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="doctor-expertise">Your Medical Expertise</label>
+
+                                    <div class="dropdown">
+                                        <label class="dropdown-toggle form-control" type="button" id="dayDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Select Specializations
+                                        </label>
+                                        <ul class="dropdown-menu px-4 bg-light" aria-labelledby="dayDropdown">
+                                            {% if specializations %}
+                                            <div class="row">
+                                                {% for spec in specializations %}
+                                                <div class="form-check col-6">
+                                                    <input class="form-check-input" type="checkbox" id="{{ spec.name }}" name="selected_specs[]" value="{{ spec.name }}" {% if spec.name in doctor.specialization.all|join:" " %}checked{% endif %}>
+                                                        <label class="form-check-label" for="{{spec.name}}">{{spec.name}}</label>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                        </ul>
+                                        
+                                    </div>                            
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Available Days</label>
+                                <div class="dropdown">
+                                    <label class="dropdown-toggle form-control" type="button" id="dayDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Select Days
+                                    </label>
+                                    <ul class="dropdown-menu" aria-labelledby="dayDropdown">
+                                        <div class="form-check form-switch">
+                                            <label class="form-check-label" for="monday">Monday </label>
+                                            <input class="form-check-input" type="checkbox" role="switch" id="monday" name="selected_days[]" value="monday" {% if "monday" in doctor.available_times %}Checked{% endif %}>
+                                          </div>
+                                          <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="tuesday" name="selected_days[]" value="tuesday" {% if "tuesday" in doctor.available_times %}Checked{% endif %}>
+                                            <label class="form-check-label" for="tuesday">Tuesday</label>
+                                          </div>
+                                          <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="Wednesday" name="selected_days[]" value="wednesday" {% if "wednesday" in doctor.available_times %}Checked{% endif %}>
+                                            <label class="form-check-label" for="Wednesday">Wednesday</label>
+                                          </div>
+                                          <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="thursday" name="selected_days[]" value="thursday" {% if "thursday" in doctor.available_times %}Checked{% endif %}>
+                                            <label class="form-check-label" for="thursday">Thursday</label>
+                                          </div>
+                                          <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="friday" name="selected_days[]" value="friday" {% if "friday" in doctor.available_times %}Checked{% endif %}>
+                                            <label class="form-check-label" for="friday">Friday</label>
+                                          </div>
+                                          <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="saturday" name="selected_days[]" value="saturday" {% if "saturday" in doctor.available_times %}Checked{% endif %}>
+                                            <label class="form-check-label" for="saturday">Saturday</label>
+                                          </div>
+                                          <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="sunday" name="selected_days[]" value="sunday" {% if "sunday" in doctor.available_times %}Checked{% endif %}>
+                                            <label class="form-check-label" for="sunday">Sunday</label>
+                                          </div>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-6">
+                                <label class="small mb-1" for="inputPhone">Consultation Fee (PKR)</label>
+                                <input class="form-control" id="inputPhone" type="number" name="fee" placeholder="Enter your phone number" value="{{doctor.consultation_fee}}" maxlength="13">
+                            </div>
+                            <div class="col-6">
+                                <label class="small mb-1" for="inputPhone">Your PMDC Number </label>
+                                <input class="form-control" id="inputPhone" type="number" value="{{doctor.pmdc_number}}" disabled>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="doctor-education">Your Educational Record</label>
+                            <textarea name="qualifications" id="" class="form-control">{{doctor.qualifications}}</textarea>
+                        </div>                        
+                        </div>                        
+                        <!-- Save changes button-->
+                        <button class="btn btn-primary w-100" type="submit">Save changes</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}
+
+{% block js %}
+<script>
+    document.getElementById('upload-button').addEventListener('click', function() {
+        document.getElementById('upload-image').click();
+    });
+
+    document.getElementById('upload-image').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-image').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+{% endblock js %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% load static %} {% block body %}
+<div class="container">
+  <p class="text-center display-5 py-4">Signup Medic Pro</p>
+  <div class="row">
+    <div class="col-6 d-flex justify-content-center align-items-center">
+      <img src="{% static 'site/img/logos/login-banner.png' %}" alt="" />
+    </div>
+    <div class="col-6">
+      <div class="form-signin m-auto me-2">
+        <form action="{% url "register" %}" method="post">
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Who you are?</label>
+            <select class="form-select" name="category" id="inputGroupSelect01">
+              <option selected value="none">Choose...</option>
+              <option value="doctor">Doctor</option>
+              <option value="patient">Patient</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingInput"
+              placeholder="name@example.com"
+              name="username"
+              required
+            />
+            <label for="floatingInput">Username</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="email"
+              class="form-control"
+              id="floatingInput"
+              placeholder="name@example.com"
+              name="email"
+              required
+            />
+            <label for="floatingInput">Email address</label>
+          </div>
+
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="floatingPassword"
+              placeholder="Password"
+              name="password"
+              required
+            />
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="floatingPassword"
+              placeholder="Password"
+              name="password2"
+              required
+            />
+            <label for="floatingPassword">Confirm Password</label>
+          </div>
+          <button class="btn btn-primary w-100 py-2" type="submit">
+            Register
+          </button>
+          <p class="mt-2 text-center">Already have an account? <a href="{% url "login" %}" class="text-reset">Login</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+</div>
+{% endblock body %}

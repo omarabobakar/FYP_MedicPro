@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% load static %} {% block body %}
+<div class="container">
+  <p class="text-center display-5 py-4">Delete Your Account</p>
+  <div class="row">
+    <div class="col-6 d-flex justify-content-center align-items-center">
+      <img src="{% static 'site/img/logos/login-banner.png' %}" alt="" />
+    </div>
+    <div class="col-6">
+      <div class="form-signin m-auto me-2">
+        <p class="text-danger text-center">All of your data will be deleted also</p>
+        <form action="{% url "delete_account" %}" method="post">
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="floatingInput"
+              placeholder="name@example.com"
+              name="password"
+              required/>
+            <label for="floatingInput">Enter Your Password</label>
+          </div>
+          <button class="btn btn-danger w-100 py-2 my-2" type="submit">
+            Delete Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

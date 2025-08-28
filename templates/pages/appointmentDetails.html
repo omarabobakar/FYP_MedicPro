@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block body %}
+  <div class="container py-5">
+    <h1 class="text-center mb-4">Appointment Details</h1>
+    <div class="row row-cols-1 row-cols-md-2 g-4 d-flex justify-content-center">
+      <div class="col">
+        <div class="card border-0 shadow-sm mb-4 bg-light py-2">
+          <div class="card-body">
+            <h5 class="card-title">Dr. {{ appointment.doctor.user.username }} with Patient: {{ appointment.patient.user.username }}</h5>
+            <p class="card-text text-muted">Scheduled for: {{ appointment.time }}, {{ appointment.day }} - {{ appointment.date }}</p>
+            <p class="card-text">Note: {{ appointment.note }}</p>
+            <span class="badge bg-primary">{{ appointment.status }}</span>
+          </div>
+          <div class="buttons d-flex justify-content-around">
+            {% if appointment.status == 'completed' %}
+              <h5 class="text-center text-primary">This appointment has been completed</h5>
+            {% else %}
+              {% if appointment.status == 'cancelled' %}
+                <h5 class="text-center text-danger">This appointment has been cancelled</h5>
+              {% else %}
+                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelAppointmentModal">Cancel</button>
+                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#completeAppointmentModal">Completed</button>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- cancel Appointment Modal start -->
+  <div class="modal logout-modal fade" id="cancelAppointmentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">Do you want to Cancel Appointment?</div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">No</a>
+          <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-primary">Yes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- cancel Appointment Modal end -->
+
+  <!-- complete Appointment Modal start -->
+  <div class="modal logout-modal fade" id="completeAppointmentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">Are you sure this appointment is Completed?</div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">No</a>
+          <a href="{% url 'complete_appointment' appointment.id %}" class="btn btn-primary">Yes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- complete Appointment Modal end -->
+{% endblock %}

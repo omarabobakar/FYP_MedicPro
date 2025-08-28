@@ -1,0 +1,561 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<!--Google font-->
+<link
+  href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900"
+  rel="stylesheet"
+/>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap"
+  rel="stylesheet"
+/>
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'db/css/vendors/font-awesome.css' %}"
+    />
+
+    <!--Slick slider css-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'db/css/vendors/slick.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'db/css/vendors/slick-theme.css' %}"
+    />
+
+    <!-- Animate icon -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'db/css/vendors/animate.css' %}"
+    />
+    <!-- date picker -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'db/css/vendors/date-picker.css' %}"
+    />
+    
+    <!-- Themify icon -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'db/css/vendors/themify-icons.css' %}"
+    />
+    <!-- Theme css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'db/css/style.css' %}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+    rel="stylesheet"
+  />
+    <style>
+      .btn-primary {
+        color: #000;
+        background-color: #2eb872;
+        border-color: #2eb872;
+      }
+      .text-primary {
+        color: #2eb872 !important;
+      }
+    </style>
+
+{% endblock head %}
+
+{% block body %}
+
+<div class="theme-color-1">
+  <!--  dashboard section start -->
+  <section class="dashboard-section section-b-space pt-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="dashboard-sidebar">
+            <div class="profile-top">
+              <div class="profile-image">
+                {% if user.avatar %}
+                <img src="/media/{{user.avatar}}" alt="" class="img-fluid"/ style="aspect-ratio: 1/1;">
+                {% else %}
+                <img src="{% static 'db/images/20.jpg' %}" alt="" class="img-fluid"/>
+                {% endif %}
+              </div>
+              <div class="profile-detail">
+                <h5>{{user.first_name}} {{user.last_name}}</h5>
+                <h6>{{user.email}}</h6>
+                <h6>@{{user.username}}</h6>
+                <a href="{% url "update_admin_profile" %}" class="btn btn-sm btn-primary text-center">Update</a>
+              </div>
+            </div>
+            <div class="faq-tab">
+              <ul class="nav nav-tabs" id="top-tab" role="tablist">
+                <li class="nav-item">
+                  <a
+                    data-bs-toggle="tab"
+                    class="nav-link active"
+                    href="#dashboard"
+                    >dashboard</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a data-bs-toggle="tab" class="nav-link" href="#all-specs"
+                    >All Specializations</a>
+                </li>
+                <li class="nav-item">
+                  <a data-bs-toggle="tab" class="nav-link" href="#orders"
+                    >Appointments</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a data-bs-toggle="tab" class="nav-link" href="#doctors"
+                    >Doctors</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a data-bs-toggle="tab" class="nav-link" href="#patients"
+                    >Patients</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a data-bs-toggle="tab" class="nav-link" href="#profile"
+                    >profile</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a data-bs-toggle="tab" class="nav-link" href="#settings"
+                    >settings</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    data-bs-toggle="modal"
+                      data-bs-target="#logout"
+                    >logout</a
+                  >
+                  <div
+                    class="d-flex align-items-center pt-4 animated slideInDown"
+                  >
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <div class="faq-content tab-content" id="top-tabContent">
+            <h2 class="text-center text-black my-4">Admin Dashboard</h2>
+            <div class="tab-pane fade show active" id="dashboard">
+              <div class="counter-section">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="counter-box">
+                      <img src="{% static 'db/images/icon/dashboard/order.png' %}" class="img-fluid" />
+                      <div>
+                        <h3>{{appointments.count}}</h3>
+                        <h5>Total Appointments</h5>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="counter-box">
+                      <img src="{% static 'db/images/icon/dashboard/sale.png' %}" class="img-fluid" />
+                      <div>
+                        <h3>{% if cancelled_appointments %}{{cancelled_appointments.count}} {% else %} 0 {% endif %}</h3>
+                        <h5>Cancelled Appointments</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="counter-box">
+                      <img src="{% static 'db/images/icon/dashboard/homework.png' %}" class="img-fluid" />
+                      <div>
+                        <h3> {% if pending_appointments %}{{pending_appointments.count}} {% else %} 0 {% endif %}</h3>
+                        <h5>Pending Appointments</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card dashboard-table">
+                    <div class="card-body">
+                      <h3>Pending Appointments</h3>
+                      {% if pending_appointments %}
+                      <table class="table mb-0">
+                        <thead>
+                          <tr>
+                            <th scope="col">Doctor</th>
+                            <th scope="col">Patient</th>
+                            <th scope="col">Day</th>
+                            <th scope="col">Time</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for app in pending_appointments %}
+                          <tr>
+                            <td>Dr. {{app.doctor.user.username}}</td>
+                            <td>{{app.patient.user.username}}</td>
+                            <td>{{app.day}}</td>
+                            <td>{{app.time}}</td>
+                            
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                      {% else %}
+                      <h4 class="text-center my-5">No Pending Appointment !</h4>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card dashboard-table">
+                    <div class="card-body">
+                      <h3>Cancelled Appointments</h3>
+                      {% if cancelled_appointments %}
+                      <table class="table mb-0">
+                        <thead>
+                          <tr>
+                            <th scope="col">Doctor</th>
+                            <th scope="col">Patient</th>
+                            <th scope="col">Day</th>
+                            <th scope="col">Time</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for app in cancelled_appointments %}
+                          <tr>
+                            <td>Dr. {{app.doctor.user.username}}</td>
+                            <td>{{app.patient.user.username}}</td>
+                            <td>{{app.day}}</td>
+                            <td>{{app.time}}</td>
+                            
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                      {% else %}
+                      <h4 class="text-center my-5">No Cancelled Appointment !</h4>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="doctors">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card dashboard-table mt-0">
+                    <div class="card-body">
+                      <div class="top-sec">
+                        <h3>all Doctors</h3>
+                      </div>
+                      <div class="row row-cols-1 row-cols-md-3 g-4">
+                      {% if doctors %}
+                      {% for doc in doctors %}
+                      <div class="col">
+                        <div class="card border-0 shadow-sm mb-4">
+                          <div class="card-body bg-white">
+                            <h5 class="card-title">Dr. {{doc.user.username}}</h5>
+                            <p class="card-text text-muted">{{doc.specialization.first}}</p>
+                            <p class="card-text">{{doc.clinic_address}}</p>
+                            <a href="{% url "doctor_profile" doc.user.username %}" class="btn btn-primary btn-sm">Visit Profile</a>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      {% else %}
+                      <h3 class="text-center">Doctors Not Found</h3>
+                      {% endif %}
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="patients">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card dashboard-table mt-0">
+                    <div class="card-body">
+                      <div class="top-sec">
+                        <h3>all Patients</h3>
+                      </div>
+                      <div class="row row-cols-1 row-cols-md-3 g-4">
+                      {% if patients %}
+                      {% for pat in patients %}
+                      <div class="col">
+                        <div class="card border-0 shadow-sm mb-4">
+                          <div class="card-body bg-white">
+                            <h5 class="card-title"><b style="color: black;">Name: </b>{{pat.user.username}}</h5>
+                            <p class="card-text text-muted"><b style="color: black;">Health Condition: </b> {{pat.medical_history}}</p>
+                            <p class="card-text"><b style="color: black;">Gander:</b> {{pat.gander}}</p>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      {% else %}
+                      <h3 class="text-center">Patients Not Found</h3>
+                      {% endif %}
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="all-specs">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card dashboard-table mt-0">
+                    <div class="card-body">
+                      <span class="float-end bg-danger text-white p-2" data-bs-toggle="modal" data-bs-target="#newSpec" role="button">Add New</span> 
+                      <div class="top-sec mb-4">
+                        <h3>All Specializations</h3>
+                      </div>
+                      <div class="row row-cols-1 row-cols-md-3 g-4">
+                      {% if specializations %}
+                      {% for spec in specializations %}
+                      <div class="card bg-white m-2" style="width: 30%;">
+                        <div class="card-body">
+                          <h5 class="card-title">{{spec.name}}</h5>
+                          <a href="{% url "delete_spec" spec.id %}" class="card-link float-end">Delete</a>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      {% else %}
+                      <h3 class="text-center">No Specialization !</h3>
+                      {% endif %}
+                      </div>                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="orders">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card dashboard-table mt-0">
+                    <div class="card-body">
+                      <div class="top-sec">
+                        <h3>All Appointments</h3>
+                      </div>
+                      <div class="table-responsive-sm">
+                        {% if appointments %} 
+                        <table class="table mb-0 order-table-vendor">
+                          <thead>
+                            <tr>
+                              <th scope="col">Doctor</th>
+                              <th scope="col">Patient</th>
+                              <th scope="col">Day</th>
+                              <th scope="col">Time</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for app in appointments %}
+                            <tr>
+                                <td>Dr. {{app.doctor.user.username}}</td>
+                                <td>{{app.patient.user.username}}</td>
+                                <td>{{app.day}}</td>
+                                <td>{{app.time}}</td>
+                                <td>{{app.status}}</td>
+                                <td><a href="{% url "appointment_details" app.id %}">View</a></td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                          {% else %}
+                          <h4 class="text-center">Appointments not found !</h4>
+                          {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="profile">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card mt-0">
+                    <div class="card-body">
+                      <div class="dashboard-box">
+                        <div class="dashboard-title">
+                          <h4>profile</h4>
+                          <span><a href="{% url 'update_admin_profile' %}" class="text-reset">edit</a></span>
+                        </div>
+                        <div class="dashboard-detail">
+                          <ul>
+                            <li>
+                              <div class="details">
+                                <div class="left">
+                                  <h6>Userame </h6>
+                                </div>
+                                <div class="right">
+                                  <h6>{{user.username}}</h6>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="details">
+                                <div class="left">
+                                  <h6>email address</h6>
+                                </div>
+                                <div class="right">
+                                  <h6 class="text-lowercase">{{user.email}}</h6>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="details">
+                                <div class="left">
+                                  <h6>Full Name</h6>
+                                </div>
+                                <div class="right">
+                                  <h6>{{user.first_name}} {{user.last_name}}</h6>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="settings">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card mt-0">
+                    <div class="card-body">
+                      <div class="dashboard-box">
+                        <div class="dashboard-title">
+                          <h4>settings</h4>
+                        </div>
+                        <div class="dashboard-detail">
+                          <div class="account-setting">
+                            <h5>Chenge Password</h5>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-check">
+                                  <input class="radio_animated form-check-input" type="radio" name="changePassword"
+                                    id="changePassword" value="option1" / checked>
+                                  <label class="form-check-label" for="changePassword">
+                                    Chenge your account Password
+                                  </label>
+                                </div>
+                                <a href="{% url "change_password" %}" type="button" class="btn btn-solid btn-xs mb-3">
+                                  Change Password
+                                </a>
+                              </div>
+                            </div>
+
+                            
+                            <h5>Delete account</h5>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-check">
+                                  <input class="radio_animated form-check-input" type="radio" name="exampleRadios3"
+                                    id="exampleRadios7" value="option7" checked />
+                                  <label class="form-check-label" for="exampleRadios7">
+                                    No longer usable
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="radio_animated form-check-input" type="radio" name="exampleRadios3"
+                                    id="exampleRadios8" value="option8" />
+                                  <label class="form-check-label" for="exampleRadios8">
+                                    Want to switch on other account
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="radio_animated form-check-input" type="radio" name="exampleRadios3"
+                                    id="exampleRadios9" value="option9" />
+                                  <label class="form-check-label" for="exampleRadios9">
+                                    other
+                                  </label>
+                                </div>
+                                <a href="{% url "delete_account" %}" type="button" class="btn btn-solid btn-xs">
+                                  Delete Account
+                                </a>
+                              </div>
+                            </div>
+
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--  dashboard section end -->
+
+<!-- Modal -->
+<div class="modal fade" id="newSpec" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Specialization</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form action="{% url "add_new_spec" %}" method="post">
+              <div class="row">
+                  <div class="mb-3">
+                      <label class="small mb-1" for="specNameInput">Specialization Name</label>
+                      <input class="form-control" id="specNameInput" name="newSpec" type="text" placeholder="Enter new specialization name">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary w-100">Add Specialization</button>
+                  <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Cancel</button>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  <script>
+    function openSearch() {
+      document.getElementById("search-overlay").style.display = "block";
+    }
+
+    function closeSearch() {
+      document.getElementById("search-overlay").style.display = "none";
+    }
+    $("#datepicker").datepicker({
+      uiLibrary: "bootstrap4",
+    });
+    $("#datepicker1").datepicker({
+      uiLibrary: "bootstrap4",
+    });
+  </script>
+</div>
+{% endblock body %}
+  

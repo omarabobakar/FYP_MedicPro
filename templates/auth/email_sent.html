@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% load static %} {% block body %}
+<div class="container">
+  <p class="text-center display-5 py-4">Complete Your Registrations</p>
+  <div class="row">
+    <div class="col-6 d-flex justify-content-center align-items-center">
+      <img src="{% static 'site/img/logos/login-banner.png' %}" alt="" />
+    </div>
+    <div class="col-6 d-flex justify-content-center align-items-center">
+      <div class="form-signin m-auto me-2">
+        <h5>An Email with Verification URL has been sent to your gmail account. Please check your inbox or Spam</h5> 
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

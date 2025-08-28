@@ -1,0 +1,50 @@
+
+{
+  "company": "MedicPro",
+  "mission": "Bringing about a revolution in healthcare accessibility and connectivity. Making healthcare as easy as a few clicks, right from the comfort of your home.",
+  "founders": [
+    {
+      "name": "Ali",
+      "role": "Founder",
+      "background": "Healthcare and technology"
+    },
+    {
+      "name": "Omar",
+      "role": "Founder",
+      "background": "Healthcare and technology"
+    },
+    {
+      "name": "Wardah",
+      "role": "Founder",
+      "background": "Healthcare and technology"
+    }
+  ],
+  "team": "A group of passionate individuals who understand the intricacies of both healthcare and technology. Each member brings a unique set of skills and experiences.",
+  "expertise_areas": [ "Diabetes", "Gastroenterology", "Neurology", "Dermatology", "Orthopedic" ],  
+  "vision": "To become a leader in the healthcare technology space.",
+  "target_audience": [
+    {
+      "type": "Patients",
+      "needs": "Seamless consultation"
+    },
+    {
+      "type": "Doctors",
+      "needs": "New opportunities"
+    }
+  ],
+  "commitment": "Innovation and a deep understanding of the challenges in the healthcare industry. Creating a platform that puts your health first.",
+  "website_features": [
+    {
+      "feature": "User-friendly chatbot",
+      "description": "A digital assistant designed to guide users through a series of questions to gather the right information and connect them with the most suitable healthcare professional."
+    }
+  ],
+  "choice": "A diverse selection of skilled and certified doctors, each specializing in various fields. Helping users find a doctor who fits their unique preferences and needs.",
+  "empowerment": {
+    "patients": "Offers the freedom to book appointments at their convenience, eliminating the need for lengthy waits and travel.",
+    "doctors": "Opens new avenues, providing them with opportunities to connect with a broader patient base.",
+    "doctor_time":"MedicPro doctors are available between 7:00 AM to 9:00 PM"
+  },
+  "booking_process": "Once you've found your ideal doctor through our platform, reserve a consultation slot that suits your schedule with just a few clicks.",
+  "goal": "Creating a movement towards a future where healthcare is accessible, personalized, and hassle-free. A win-win for both patients and doctors."
+}

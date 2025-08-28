@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% block homeActive %} active {% endblock homeActive %}
+{% block body %} {% load static %}
+
+<!-- Header Start -->
+<div class="container-fluid bg-dark p-0 mb-5">
+  <div class="row g-0 flex-column-reverse flex-lg-row">
+    <div class="col-lg-6 p-0 wow fadeIn" data-wow-delay="0.1s">
+      <div class="header-bg h-100 d-flex flex-column justify-content-center p-5">
+        <h5 class="display-5 text-light">Welcome to Medic Pro</h5>
+        <p class="text-light">Choose well by choosing us</p>
+        <div class="d-flex align-items-center pt-4 animated slideInDown">
+          {% if not user.is_authenticated %}
+          <a class="btn btn-primary py-sm-3 px-3 px-sm-5 me-5" href="{% url 'login' %}">Login</a>
+          <a class="btn btn-primary py-sm-3 px-3 px-sm-5 me-5" href="{% url 'register' %}">Signup</a>
+          {% endif %}
+          {% if user.is_authenticated and user.role == "patient"%}
+          <a class="btn btn-primary py-sm-3 px-3 px-sm-5 me-5" href="{% url 'patient_dashboard' %}">Patient
+            Dashboard</a>
+          {% endif %}
+          {% if user.is_authenticated and user.role == "doctor"%}
+          <a class="btn btn-primary py-sm-3 px-3 px-sm-5 me-5" href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+      <div class="owl-carousel header-carousel">
+        <div class="owl-carousel-item">
+          <img class="img-fluid" src="{% static 'site/img/medic/3.jpeg' %}" alt="" />
+        </div>
+        <div class="owl-carousel-item">
+          <img class="img-fluid" src="{% static 'site/img/medic/2.jpeg' %}" alt="" />
+        </div>
+        <div class="owl-carousel-item">
+          <img class="img-fluid" src="{% static 'site/img/medic/4.jpeg' %}" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Header End -->
+
+
+<!-- About Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+        <p><span class="text-primary me-2"></span>Welcome To Medic Pro</p>
+        <h1 class="display-6 mb-4">
+          What
+          <span class="text-primary">Medic Pro</span> Offers!
+        </h1>
+        <p class="mb-4">
+          At MedicPro, we're bringing about a revolution in healthcare accessibility and connectivity. In the fast-paced world we live in, finding time for healthcare can be a challenge. We get it, and that's why we've embarked on a mission to make healthcare as easy as a few clicks, right from the comfort of your home. Our platform provides:
+        </p>
+        <h5 class="mb-3">
+          <i class="far fa-check-circle text-primary me-3"></i>
+          Instant access to experienced doctors
+        </h5>
+        <h5 class="mb-3">
+          <i class="far fa-check-circle text-primary me-3"></i>
+          Convenient appointment scheduling
+        </h5>
+        <h5 class="mb-3">
+          <i class="far fa-check-circle text-primary me-3"></i>Seamless
+          interaction with a user-friendly chatbot
+        </h5>
+        <h5 class="mb-3">
+          <i class="far fa-check-circle text-primary me-3"></i>Reliable medical
+          advice and treatment options
+        </h5>
+
+        <a class="btn btn-primary py-3 px-5 mt-3" href="{% url "about" %}">Read More</a>
+      </div>
+      <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+        <div class="img-border">
+          <img class="img-fluid" src="{% static 'site/img/logos/login-banner.png' %}" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- About End -->
+
+<!-- Achievments Start -->
+<h1 class="display-5 mb-4 text-center">
+  Our
+  <span class="text-primary">Achievments</span> !
+</h1>
+<div class="container-xxl bg-primary facts my-5 py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="container py-5">
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+        <i class="fa fa-paw fa-3x text-primary mb-3"></i>
+        <h1 class="text-white mb-2" data-toggle="counter-up">1234</h1>
+        <p class="text-white mb-0">Total Docters</p>
+      </div>
+      <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+        <i class="fa fa-users fa-3x text-primary mb-3"></i>
+        <h1 class="text-white mb-2" data-toggle="counter-up">12345</h1>
+        <p class="text-white mb-0">Registered Patients</p>
+      </div>
+      <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
+        <i class="fa fa-certificate fa-3x text-primary mb-3"></i>
+        <h1 class="text-white mb-2" data-toggle="counter-up">12345</h1>
+        <p class="text-white mb-0">Total Membership</p>
+      </div>
+      <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
+        <i class="fa fa-shield-alt fa-3x text-primary mb-3"></i>
+        <h1 class="text-white mb-2" data-toggle="counter-up">123</h1>
+        <p class="text-white mb-0">Something else</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Achievments End -->
+
+<!-- Specialities Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
+      <div class="col-lg-6">
+        <p><span class="text-primary me-2"></span>Our Specialities</p>
+        <h1 class="display-5 mb-0">
+          Our
+          <span class="text-primary">Specialities</span> !
+        </h1>
+      </div>
+      <div class="col-lg-6">
+        <div class="bg-primary h-100 d-flex align-items-center py-4 px-4 px-sm-5">
+          <i class="fa fa-3x fa-mobile-alt text-white"></i>
+          <div class="ms-4">
+            <p class="text-white mb-0">Call for emergency</p>
+            <h2 class="text-white mb-0">+012 345 6789</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row gy-5 gx-4 d-flex justify-content-center">
+      <div class="col-lg-4 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+        <img class="img-fluid mb-3" src="{% static 'site/img/spes/diabates.jpg' %}" style="width: 100px;"  alt="Icon"/>
+        <h5 class="mb-3">Diabetes</h5>
+        <span>We have the best doctors for diabetes, providing comprehensive care and personalized treatment plans to manage your condition effectively.
+        </span>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+        <img class="img-fluid mb-3" src="{% static 'site/img/spes/neurology.jpg' %}" style="width: 100px;" alt="Icon" />
+        <h5 class="mb-3">Neurology</h5>
+        <span>Our neurology experts offer top-tier care for neurological disorders, ensuring advanced diagnostics and individualized treatment strategies for optimal outcomes.</span>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+        <img class="img-fluid mb-3" src="{% static 'site/img/spes/orth.jpg' %}" style="width: 100px;" alt="Icon" />
+        <h5 class="mb-3">Orthopedic</h5>
+        <span>We have leading orthopedic specialists dedicated to restoring mobility, treating injuries, and managing chronic conditions with cutting-edge solutions.</span>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+        <img class="img-fluid mb-3" src="{% static 'site/img/spes/derm.jpg' %}" style="width: 100px;" alt="Icon" />
+        <h5 class="mb-3">Dermatology</h5>
+        <span>Our dermatology team excels in treating skin conditions, offering expert care for various dermatological issues with innovative and personalized approaches.</span>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+        <img class="img-fluid mb-3" src="{% static 'site/img/spes/gastr.jpg' %}" style="width: 100px;" alt="Icon" />
+        <h5 class="mb-3">Gastroenterology</h5>
+        <span>Our gastroenterology experts provide superior care for digestive disorders, utilizing state-of-the-art techniques for accurate diagnosis and effective treatment.</span>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- Service End -->
+
+<!-- Testimonial Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <h1 class="display-5 text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+      Our Visitor Say!
+    </h1>
+    <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+      <div class="testimonial-item text-center">
+        <img class="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
+          src="{% static 'site/img/testimonial-1.jpg' %}" style="width: 100px; height: 100px" />
+        <div class="testimonial-text rounded text-center p-4">
+          <p>
+            Medic Pro made it so easy to connect with a doctor. The chatbot was
+            incredibly helpful, and I got the advice I needed quickly.
+          </p>
+          <h5 class="mb-1">Sonia Hayat</h5>
+          <span class="fst-italic">Student</span>
+        </div>
+      </div>
+      <div class="testimonial-item text-center">
+        <img class="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
+          src="{% static 'site/img/testimonial-2.jpg' %}" style="width: 100px; height: 100px" />
+        <div class="testimonial-text rounded text-center p-4">
+          <p>
+            As a doctor, I appreciate the simplicity of Medic Pro's platform. It
+            streamlines the appointment process and allows me to focus on
+            patient care.
+          </p>
+          <h5 class="mb-1">Dr. Huzaifa</h5>
+          <span class="fst-italic">Doctor</span>
+        </div>
+      </div>
+      <div class="testimonial-item text-center">
+        <img class="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
+          src="{% static 'site/img/testimonial-3.jpg' %}" style="width: 100px; height: 100px" />
+        <div class="testimonial-text rounded text-center p-4">
+          <p>
+            I've had multiple appointments through Medic Pro, and each time, the
+            experience has been smooth and professional. Highly recommended!
+          </p>
+          <h5 class="mb-1">Amjad Hussain</h5>
+          <span class="fst-italic">Software Engineer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Testimonial End -->
+
+{% endblock body %}

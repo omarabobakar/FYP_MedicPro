@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% block aboutActive %} active {% endblock aboutActive %}
+{% load static %}
+{% block body %}
+    <!-- Page Header Start -->
+    <div
+      class="container-fluid header-bg py-5 mb-5 wow fadeIn"
+      data-wow-delay="0.1s"
+    >
+      <div class="container py-5">
+        <h1 class="display-4 text-white mb-3 animated slideInDown">About Us</h1>
+      </div>
+    </div>
+    <!-- Page Header End -->
+<!-- About Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+        <p><span class="text-primary me-2"></span>Welcome To Medic Pro</p>
+        <h1 class="display-6 mb-4">
+          What
+          <span class="text-primary">Medic Pro</span> Offers!
+        </h1>
+        <p class="mb-4">
+          At MedicPro, we're bringing about a revolution in healthcare accessibility and connectivity. In the fast-paced world we live in, finding time for healthcare can be a challenge. We get it, and that's why we've embarked on a mission to make healthcare as easy as a few clicks, right from the comfort of your home. Our platform provides:
+        </p>
+        <h5 class="mb-3">
+          <i class="far fa-check-circle text-primary me-3"></i>Instant access to experienced doctors
+        </h5>
+        <h5 class="mb-3">
+          <i class="far fa-check-circle text-primary me-3"></i>Convenient appointment scheduling
+        </h5>
+        <h5 class="mb-3">
+          <i class="far fa-check-circle text-primary me-3"></i>Seamless
+          interaction with a user-friendly chatbot
+        </h5>
+        <h5 class="mb-3">
+          <i class="far fa-check-circle text-primary me-3"></i>Reliable medical
+          advice and treatment options
+        </h5>
+
+        <a class="btn btn-primary py-3 px-5 mt-3" href="#story">Read More</a>
+      </div>
+      <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+        <div class="img-border">
+          <img
+            class="img-fluid"
+            src="{% static 'site/img/logos/login-banner.png' %}"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- About End -->
+
+<!-- Our Story Start -->
+<h1 class="display-5 mb-4 text-center">
+  Our
+  <span class="text-primary">Story</span> !
+</h1>
+<div
+  class="container-xxl bg-primary wow fadeInUp"
+  data-wow-delay="0.1s"
+>
+  <p class="text-light py-4 px-3" id="story">
+    At MedicPro, we're revolutionizing healthcare accessibility and connectivity by making it as simple as a few clicks from home. Founded by Ali, Omar, and Wardah, our platform offers personalized care through a user-friendly chatbot that connects patients with a diverse selection of skilled doctors. We empower patients to book convenient appointments and provide doctors with opportunities to reach a broader patient base. MedicPro is dedicated to creating a future of accessible, personalized, and hassle-free healthcare.
+  </p>
+
+</div>
+<!-- Our Story End -->
+
+<!-- Achievments Start -->
+<h1 class="display-5 mb-4 text-center">
+  Our
+  <span class="text-primary">Achievments</span> !
+</h1>
+<div
+  class="container-xxl bg-primary facts my-5 py-5 wow fadeInUp"
+  data-wow-delay="0.1s"
+>
+  <div class="container py-5">
+    <div class="row g-4">
+      <div
+        class="col-md-6 col-lg-3 text-center wow fadeIn"
+        data-wow-delay="0.1s"
+      >
+        <i class="fa fa-paw fa-3x text-primary mb-3"></i>
+        <h1 class="text-white mb-2" data-toggle="counter-up">1234</h1>
+        <p class="text-white mb-0">Total Docters</p>
+      </div>
+      <div
+        class="col-md-6 col-lg-3 text-center wow fadeIn"
+        data-wow-delay="0.3s"
+      >
+        <i class="fa fa-users fa-3x text-primary mb-3"></i>
+        <h1 class="text-white mb-2" data-toggle="counter-up">12345</h1>
+        <p class="text-white mb-0">Registered Patients</p>
+      </div>
+      <div
+        class="col-md-6 col-lg-3 text-center wow fadeIn"
+        data-wow-delay="0.5s"
+      >
+        <i class="fa fa-certificate fa-3x text-primary mb-3"></i>
+        <h1 class="text-white mb-2" data-toggle="counter-up">12345</h1>
+        <p class="text-white mb-0">Total Membership</p>
+      </div>
+      <div
+        class="col-md-6 col-lg-3 text-center wow fadeIn"
+        data-wow-delay="0.7s"
+      >
+        <i class="fa fa-shield-alt fa-3x text-primary mb-3"></i>
+        <h1 class="text-white mb-2" data-toggle="counter-up">123</h1>
+        <p class="text-white mb-0">Something else</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Achievments End -->
+
+<!-- Testimonial Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <h1 class="display-5 text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+      Our Visitor Say!
+    </h1>
+    <div
+      class="owl-carousel testimonial-carousel wow fadeInUp"
+      data-wow-delay="0.1s"
+    >
+      <div class="testimonial-item text-center">
+        <img
+          class="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
+          src="{% static 'site/img/testimonial-1.jpg' %}"
+          style="width: 100px; height: 100px"
+        />
+        <div class="testimonial-text rounded text-center p-4">
+          <p>
+            Medic Pro made it so easy to connect with a doctor. The chatbot was
+            incredibly helpful, and I got the advice I needed quickly.
+          </p>
+          <h5 class="mb-1">Sonia Hayat</h5>
+          <span class="fst-italic">Student</span>
+        </div>
+      </div>
+      <div class="testimonial-item text-center">
+        <img
+          class="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
+          src="{% static 'site/img/testimonial-2.jpg' %}"
+          style="width: 100px; height: 100px"
+        />
+        <div class="testimonial-text rounded text-center p-4">
+          <p>
+            As a doctor, I appreciate the simplicity of Medic Pro's platform. It
+            streamlines the appointment process and allows me to focus on
+            patient care.
+          </p>
+          <h5 class="mb-1">Dr. Huzaifa</h5>
+          <span class="fst-italic">Doctor</span>
+        </div>
+      </div>
+      <div class="testimonial-item text-center">
+        <img
+          class="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
+          src="{% static 'site/img/testimonial-3.jpg' %}"
+          style="width: 100px; height: 100px"
+        />
+        <div class="testimonial-text rounded text-center p-4">
+          <p>
+            I've had multiple appointments through Medic Pro, and each time, the
+            experience has been smooth and professional. Highly recommended!
+          </p>
+          <h5 class="mb-1">Amjad Hussain</h5>
+          <span class="fst-italic">Software Engineer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Testimonial End -->
+
+
+{% endblock body %}

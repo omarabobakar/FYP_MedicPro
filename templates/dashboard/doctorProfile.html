@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block body %}
+{% load static %}
+<div class="container-xl px-4 mt-4">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Profile Picture</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 50%;" class="m-auto">
+                        <img id="profile-image" src="{% if doctor.user.avatar %}/media/{{ doctor.user.avatar }}{% else %}{% static 'db/images/20.jpg' %}{% endif %}" alt="" class="rounded" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    
+                </div>
+            </div>
+            <p class="mt-3 text-center text-danger">Dr. {{doctor.user.username}}'s busy Schedule</p>
+            <ul class="list-group">
+                {% if busy_times %}
+                {% for time in busy_times %}
+                <li class="list-group-item">{{time}}</li>
+                {% endfor %}
+                {% else %}
+                <li class="list-group-item">Not Busy</li>
+                {% endif %}               
+              </ul>
+        </div>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header">Doctor Details</div>
+                <div class="card-body">
+                    <form>
+                        <!-- Form Group (username)-->
+                        <div class="mb-3 row">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="patientEmail">Email Address</label>
+                                <input class="form-control" id="patientEmail" name="email" type="email" placeholder="Not Provided" value="{{doctor.user.email}}" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="patientUsername">Name</label>
+                                {% if doctor.user.first_name %}
+                                <input class="form-control" id="inputFirstName" name="first_name" type="text" placeholder="Not Provided" value="{{doctor.user.first_name}} {{doctor.user.last_name}}" disabled>
+                                {% else %}
+                                <input class="form-control" id="patientUsername" name="username" type="text" placeholder="Not Provided" value="{{doctor.user.username}}" disabled>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone">Phone number</label>
+                                <input class="form-control" id="inputPhone" type="text" name="phone" placeholder="" value="{{user.phone}}" maxlength="13" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Available Days</label>
+                                <textarea name="qualifications" id="" class="form-control" disabled>{{doctor.available_times}}</textarea>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="doctor-expertise">Doctor Medical Expertise</label>
+                                <textarea name="qualifications" id="" class="form-control" disabled>{% for spec in doctor.specialization.all %} {{spec.name}}, {% endfor %}</textarea>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="clinic_address">Doctor Clinic Address</label>
+                                <input class="form-control" id="clinic_address" name="clinic_address" type="text" placeholder="" value="{{doctor.clinic_address}}" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="row gx-3 mb-3">
+                            <div class="col-6">
+                                <label class="small mb-1" for="inputPhone">Consultation Fee (PKR)</label>
+                                <input class="form-control" id="inputPhone" type="number" name="fee"  value="{{doctor.consultation_fee}}" maxlength="13" disabled>
+                            </div>
+                            <div class="col-6">
+                                <label class="small mb-1" for="pmdc_number">PMDC Number</label>
+                                <input class="form-control" id="pmdc_number" type="text"   value="{{doctor.pmdc_number}}" disabled>
+                            </div>
+
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="small mb-1" for="doctor-education">Doctor Educatinal Record</label>
+                            <textarea name="qualifications" id="" class="form-control" disabled>{{doctor.qualifications}}</textarea>
+                        </div>                        
+                        <!-- Save changes button-->
+                        <button class="btn btn-primary w-100" type="button" data-bs-toggle="modal" data-bs-target="#appointmentModal">Book Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="appointmentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Appointment</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'schedule_appointment' %}" method="post">
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="small mb-1" for="patientUsername">Doctor</label>
+                        <input type="hidden" name="doctor" value="{{doctor.user.username}}">
+                        {% if doctor.user.first_name %}
+                        <input class="form-control" id="inputFirstName" name="first_name" type="text" placeholder="Enter your first name" value="{{doctor.user.first_name}} {{doctor.user.last_name}}" disabled>
+                        {% else %}
+                        <input class="form-control" id="patientUsername" name="username" type="text" placeholder="Enter your username" value="{{doctor.user.username}}" disabled>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="small mb-1" for="patientUsername">Patient</label>
+                        {% if user.first_name %}
+                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="{{user.first_name}} {{user.last_name}}" disabled>
+                        {% else %}
+                        <input class="form-control" id="patientUsername"  type="text" placeholder="Enter your username" value="{{user.username}}" disabled>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="small mb-1" for="patientUsername">Select Appointment Day</label>
+                        <select class="form-select form-select-sm text-capitalize" aria-label="Small select example" name="day">
+                            <option selected>Choose A Day</option>
+                            {% for day in available_days %}
+                                <option value="{{ day }}" class="text-capitalize">{{ day }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="small mb-1" for="appointmentTime">Select Appointment Time</label>
+                        <input type="time" id="appointmentTime" name="time" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="doctor-education">Appointment Note</label>
+                    <textarea id="doctor-education" name="note" class="form-control"></textarea>
+                </div> 
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary w-100">Schedule Appointment</button>
+                    <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}
